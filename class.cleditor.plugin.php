@@ -108,13 +108,17 @@ a.PreviewButton {
 
  
    }
+	/**
+	 * Recibe la imagen y la copia en el la carpeta en el servidor /uploads/tmp 
+	 * Este el contrador el cual es accequible desde http://elhosting/?p=/plugin/SubidaImagenes
+	 */
 	public function PluginController_SubidaImagenes_Create($Sender) {
 
 			$Session = Gdn::Session();
 			$Rutatemporal = PATH_ROOT . DS . 'uploads/tmp/';
 			if ($Session->IsValid()){
-
-				if (!file_exists($Rutatemporal)) { mkdir($Rutatemporal,0777);};
+					
+			    if (!file_exists($Rutatemporal)) { mkdir($Rutatemporal,0777);};
 			/*	 echo '<p>Nombre Temporal: '.$_FILES['fileUpload']['tmp_name'].'</p>';
 				 echo '<p>Nombre en el Server: '.$_FILES['fileUpload']['name'].'</p>';
 				echo '<p>Tipo de Archivo: '.$_FILES['fileUpload']['type'];*/
@@ -123,21 +127,22 @@ a.PreviewButton {
 				 $dir = $Rutatemporal;
 				 // Intentamos Subir Archivo
 				 // (1) Comprobamos que existe el nombre temporal del archivo
+				 
 				 if (isset($_FILES['fileUpload']['tmp_name'])) {
-				 // (2) - Comprobamos que se trata de un archivo de imágen
-				 if ($tipo == 'image') {
-				 // (3) Por ultimo se intenta copiar el archivo al servidor.
-				 if (!copy($_FILES['fileUpload']['tmp_name'], $dir.$_FILES['fileUpload']['name']))
-				 echo '<script> alert("Error al Subir el Archivo");</script>';
+				 	// (2) - Comprobamos que se trata de un archivo de imágen
+				 	if ($tipo == 'image') {
+				 	// (3) Por ultimo se intenta copiar el archivo al servidor.
+							if (copy($_FILES['fileUpload']['tmp_name'], $dir.$_FILES['fileUpload']['name'])){
+ 								echo '<div id="someID">'.Img('uploads/tmp/'.$_FILES['fileUpload']['name']).'</div>';
+							}
+
+							else echo '<script> alert("Error al Subir el Archivo");</script>';
+				 	}
+				 	else echo 'El Archivo que se intenta subir NO ES del tipo Imagen.';
 				 }
-				 else echo 'El Archivo que se intenta subir NO ES del tipo Imagen.';
-				 }
-		 else echo 'El Archivo no ha llegado al Servidor.';
+				 else echo 'El Archivo no ha llegado al Servidor.';
 
 			};
-			echo $_SERVER['HTTP_HOST'];
-                        echo Img('uploads/tmp/'.$_FILES['fileUpload']['name']);
-                 echo '<img src="'.$_SERVER['HTTP_HOST'].$_FILES['fileUpload']['name'].'">';
 	}
 
 

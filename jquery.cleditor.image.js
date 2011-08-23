@@ -1,7 +1,7 @@
 (function($) {
    //Constantes
   var FOLDER = location.pathname;
-  // Definimos el boton imagen
+  var IMG_CARGA  = $.cleditor.imagesPath() + "cargando.gif";
   $.cleditor.buttons.imagen = {
     name: "imagen",
     image: "imagen.gif",
@@ -9,20 +9,15 @@
     command: "inserthtml",
     popupName: "imagen",
     popupClass: "cleditorPrompt",
-    popupContent: "<form method=post enctype=multipart/form-data "+
-	          "action="+FOLDER+"?p=plugin/Example target=iframeUpload> "+
-                  "<input type=hidden name=phpMyAdmin />  "+
+    popupContent: 		  "  <div id=carga ></div>:"+   
+		  "  <iframe name=iframeUpload id=iframeUpload onload=carga() ></iframe>:"+   
+			"<form id=form_envio method=post enctype=multipart/form-data "+
+          "action="+FOLDER+"?p=plugin/SubidaImagenes target=iframeUpload> "+
 		  "Archivo: <input name=fileUpload type=file />"+
-		  "<input type=submit value=enviar>"+
-		  "  <iframe name=iframeUpload></iframe>:"+   
-                  "</form>",
-
-
-
-
-
-
-    buttonClick: imagenClick
+                  "</form>"+
+		  "<input type=button value=Submit>",
+    buttonClick: imagenClick,
+	
 
   };
       
@@ -32,16 +27,18 @@
     .replace("bold", "imagen bold");
       
  
-  // Handle the imagen button click event
+   // Handle the imagen button click event
   function imagenClick(e, data) {
-      
- 
     // Wire up the submit button click event
     $(data.popup).children(":button")
       .unbind("click")
       .bind("click", function(e) {
-      
- 
+ 	  //enviamos el formulario
+	    $('#form_envio').submit();
+				//$('#iframeUpload').contents().('#someID').length
+		$('#carga').html('<img src="'+IMG_CARGA+'">');
+		
+
         // Get the editor
         var editor = data.editor;
       
@@ -54,12 +51,12 @@
         var html = "Hello " + name;
         editor.execCommand(data.command, html, null, data.button);
       
- 
+ /*
         // Hide the popup and set focus back to the editor
         editor.hidePopups();
         editor.focus();
       
- 
+ */
       });
       
  
@@ -67,3 +64,12 @@
       
  
 })(jQuery);
+
+  function carga(e,data) {
+  
+	$('#carga').html('');
+      
+
+  
+  }
+
