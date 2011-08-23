@@ -35,8 +35,7 @@
       .bind("click", function(e) {
  	  //enviamos el formulario
 	    $('#form_envio').submit();
-				//$('#iframeUpload').contents().('#someID').length
-		$('#carga').html('<img src="'+IMG_CARGA+'">');
+	$('#carga').html('<img src="'+IMG_CARGA+'">');
 		
 
         // Get the editor
@@ -49,7 +48,6 @@
  
         // Insert some html into the document
         var html = "Hello " + name;
-        editor.execCommand(data.command, html, null, data.button);
       
  /*
         // Hide the popup and set focus back to the editor
@@ -65,11 +63,12 @@
  
 })(jQuery);
 
-  function carga(e,data) {
-  
-	$('#carga').html('');
-      
-
-  
+  function carga() {
+		if ($('#iframeUpload').contents().find('#someID').length)
+				{
+				var html2=$('#iframeUpload').contents().find('#someID').html();
+				ed.execCommand("inserthtml", html2, null, null);
+				}
+	  
   }
 

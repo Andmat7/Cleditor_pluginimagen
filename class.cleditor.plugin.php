@@ -127,7 +127,7 @@ a.PreviewButton {
 				 $dir = $Rutatemporal;
 				 // Intentamos Subir Archivo
 				 // (1) Comprobamos que existe el nombre temporal del archivo
-				 
+				 sleep(3);
 				 if (isset($_FILES['fileUpload']['tmp_name'])) {
 				 	// (2) - Comprobamos que se trata de un archivo de imágen
 				 	if ($tipo == 'image') {
