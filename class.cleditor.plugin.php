@@ -85,13 +85,15 @@ a.PreviewButton {
 }
 </style>
 <script type="text/javascript">
+		
 	(function(jQuery) {
+	
 		// Make sure the removal of autogrow does not break anything
 		jQuery.fn.autogrow = function(o) { return; }
 		// Attach the editor to comment boxes
 		jQuery("#Form_Body").livequery(function() {
 			var frm = $(this).parents("div.CommentForm");
-			ed = jQuery(this).cleditor({width:"100%", height:250})[0];
+			ed = jQuery(this).cleditor({width:"100%", height:"100%"})[0].focus();
 			this.editor = ed; // Support other plugins!
 			jQuery(frm).bind("clearCommentForm", {editor:ed}, function(e) {
 				frm.find("textarea").hide();
@@ -142,7 +144,8 @@ a.PreviewButton {
 				 }
 				 else echo 'El Archivo no ha llegado al Servidor.';
 
-			};
+			}
+			else echo "Debe iniciar sesion para subir archivos";
 	}
 
 
