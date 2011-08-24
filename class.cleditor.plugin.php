@@ -117,25 +117,33 @@ a.PreviewButton {
 	public function PluginController_SubidaImagenes_Create($Sender) {
 
 			$Session = Gdn::Session();
-			$Rutatemporal = PATH_ROOT . DS . 'uploads/tmp/';
+			$dir = PATH_ROOT . DS . 'uploads/tmp/';
+			$nombreimagen =  'tmp'.$Session->UserID.'_'.RandomString(12);
+
+
 			if ($Session->IsValid()){
 					
 			    if (!file_exists($Rutatemporal)) { mkdir($Rutatemporal,0777);};
 			/*	 echo '<p>Nombre Temporal: '.$_FILES['fileUpload']['tmp_name'].'</p>';
 				 echo '<p>Nombre en el Server: '.$_FILES['fileUpload']['name'].'</p>';
 				echo '<p>Tipo de Archivo: '.$_FILES['fileUpload']['type'];*/
-				 $tipo = substr($_FILES['fileUpload']['type'], 0, 5);
+
+				$tipo = substr($_FILES['fileUpload']['type'], 0, 5);
+				echo $_FILES['fileUpload']['type'];
+				$ext = substr($_FILES['fileUpload']['type'], 6, 4);
+                                // echo substr($_FILES['fileUpload']['type'], 0, 5);
+                                 //echo print_r($_FILES);
+                                 
 				 // Definimos Directorio donde se guarda el archivo
-				 $dir = $Rutatemporal;
 				 // Intentamos Subir Archivo
 				 // (1) Comprobamos que existe el nombre temporal del archivo
-				 sleep(3);
 				 if (isset($_FILES['fileUpload']['tmp_name'])) {
 				 	// (2) - Comprobamos que se trata de un archivo de imágen
 				 	if ($tipo == 'image') {
-				 	// (3) Por ultimo se intenta copiar el archivo al servidor.
-							if (copy($_FILES['fileUpload']['tmp_name'], $dir.$_FILES['fileUpload']['name'])){
- 								echo '<div id="someID">'.Img('uploads/tmp/'.$_FILES['fileUpload']['name']).'</div>';
+				 	// (3) Por último se intenta copiar el archivo al servidor.
+							if (copy($_FILES['fileUpload']['tmp_name'], $dir.$nombreimagen.'.'.$ext )){
+
+ 								echo '<div id="someID">'.Img('uploads/tmp/'.$nombreimagen.'.'.$ext).'</div>';
 							}
 
 							else echo '<script> alert("Error al Subir el Archivo");</script>';
