@@ -4,13 +4,13 @@
   var IMG_CARGA  = $.cleditor.imagesPath() + "cargando.gif";
   $.cleditor.buttons.imagen = {
     name: "imagen",
-    image: "imagen.gif",
-    title: "Insertar Imagen",
+    image: "imagen.png",
+    title: "Insertar Imagen dentro del foro",
     command: "inserthtml",
     popupName: "imagen",
     popupClass: "cleditorPrompt",
     popupContent: 		  "  <div id=carga ></div>:"+   
-		  "  <iframe name=iframeUpload id=iframeUpload onload=carga() ></iframe>:"+   
+		  "  <iframe name=iframeUpload id=iframeUpload onload=carga() style=display:none > </iframe>:"+   
 			"<form id=form_envio method=post enctype=multipart/form-data "+
           "action="+FOLDER+"?p=plugin/SubidaImagenes target=iframeUpload> "+
 		  "Archivo: <input name=fileUpload type=file />"+
@@ -66,9 +66,12 @@
   function carga() {
 		if ($('#iframeUpload').contents().find('#someID').length)
 				{
+				$('#carga').html('');
 				var html2=$('#iframeUpload').contents().find('#someID').html();
 				ed.execCommand("inserthtml", html2, null, null);
-				}
+		        ed.hidePopups();
+       			ed.focus();
+ 			}
 	  
   }
 
