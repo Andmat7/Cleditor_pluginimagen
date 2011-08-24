@@ -124,16 +124,9 @@ a.PreviewButton {
 			if ($Session->IsValid()){
 					
 			    if (!file_exists($Rutatemporal)) { mkdir($Rutatemporal,0777);};
-			/*	 echo '<p>Nombre Temporal: '.$_FILES['fileUpload']['tmp_name'].'</p>';
-				 echo '<p>Nombre en el Server: '.$_FILES['fileUpload']['name'].'</p>';
-				echo '<p>Tipo de Archivo: '.$_FILES['fileUpload']['type'];*/
 
 				$tipo = substr($_FILES['fileUpload']['type'], 0, 5);
-				echo $_FILES['fileUpload']['type'];
 				$ext = substr($_FILES['fileUpload']['type'], 6, 4);
-                                // echo substr($_FILES['fileUpload']['type'], 0, 5);
-                                 //echo print_r($_FILES);
-                                 
 				 // Definimos Directorio donde se guarda el archivo
 				 // Intentamos Subir Archivo
 				 // (1) Comprobamos que existe el nombre temporal del archivo
@@ -148,12 +141,12 @@ a.PreviewButton {
 
 							else echo '<script> alert("Error al Subir el Archivo");</script>';
 				 	}
-				 	else echo 'El Archivo que se intenta subir NO ES del tipo Imagen.';
+				 	else echo '<script> alert("El Archivo que se intenta subir NO ES del tipo Imagen.");</script>';
 				 }
-				 else echo 'El Archivo no ha llegado al Servidor.';
+				 else echo '<script> alert("El Archivo no ha llegado al Servidor.)";</script>';
 
 			}
-			else echo "Debe iniciar sesion para subir archivos";
+			else echo '<script> alert("Debe iniciar sesion para subir archivos");</script>';
 	}
 
 
